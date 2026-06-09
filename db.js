@@ -2,6 +2,22 @@ const { Pool } = require("pg");
 
 let pool;
 
+function validateConnectionString(connectionString) {
+    let databaseUrl;
+    try {
+        databaseUrl = new URL(connectionString);
+    } catch {
+        throw new Error("DATABASE_URL must be a valid PostgreSQL connection URL.");
+    }
+
+    const isRenderInternalHost = /^dpg-[a-z0-9-]+-a$/.test(databaseUrl.hostname);
+    if (isRenderInternalHost && process.env.RENDER !== "true") {
+        throw new Error(
+            "DATABASE_URL points to a Render internal hostname. Use a local PostgreSQL URL or the Render external URL outside Render."
+        );
+    }
+}
+
 function getPool() {
     if (pool) return pool;
 
@@ -9,6 +25,7 @@ function getPool() {
     if (!connectionString) {
         throw new Error("DATABASE_URL is required.");
     }
+    validateConnectionString(connectionString);
 
     const sslMode = (process.env.DATABASE_SSL || "disable").toLowerCase();
     const ssl = sslMode === "require" ? { rejectUnauthorized: true } : undefined;
@@ -62,4 +79,3 @@ module.exports = {
     query,
     withTransaction
 };
-

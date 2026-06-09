@@ -8,7 +8,7 @@ const isUnconfiguredGitHubPages =
 const API_ORIGIN =
   configuredApiOrigin ||
   (isLocalPreview
-    ? `${window.location.protocol}//${window.location.hostname}:4173`
+    ? `${window.location.protocol}//${window.location.hostname}:3000`
     : window.location.origin);
 
 const loginView = document.querySelector("#loginView");
