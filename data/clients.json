@@ -1,0 +1,35 @@
+[
+  {
+    "accountNumber": "1001",
+    "pinCode": "1234",
+    "name": "أحمد محمد",
+    "phone": "0790000000",
+    "balance": 4250,
+    "transactions": [
+      {
+        "type": "deposit",
+        "amount": 500,
+        "date": "2026-06-08T10:30:00"
+      },
+      {
+        "type": "withdraw",
+        "amount": 100,
+        "date": "2026-06-07T15:45:00"
+      }
+    ]
+  },
+  {
+    "accountNumber": "2002",
+    "pinCode": "2222",
+    "name": "سارة علي",
+    "phone": "0780000000",
+    "balance": 7700,
+    "transactions": [
+      {
+        "type": "withdraw",
+        "amount": 100,
+        "date": "2026-06-08T23:44:04.720Z"
+      }
+    ]
+  }
+]

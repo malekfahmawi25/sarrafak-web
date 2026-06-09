@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07111f">
+    <title>صرافك | الخدمات المصرفية</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <main class="app-shell">
+        <header class="topbar">
+            <a class="brand" href="#" aria-label="صرافك">
+                <span class="brand-mark">ص</span>
+                <span>
+                    <strong>صرافك</strong>
+                    <small>خدمات مصرفية آمنة</small>
+                </span>
+            </a>
+
+            <div class="topbar-actions">
+                <span class="secure-pill" id="connectionStatus"><span class="status-dot"></span>
+                    <span id="connectionStatusText">جاري فحص الاتصال</span>
+                </span>
+                <button class="icon-button hidden" id="logoutButton" type="button" aria-label="تسجيل الخروج"
+                    title="تسجيل الخروج">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M10 17l5-5-5-5M15 12H3M21 19V5a2 2 0 0 0-2-2h-6"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <section class="login-view" id="loginView">
+            <div class="login-copy">
+                <span class="eyebrow">أهلاً بك من جديد</span>
+                <h1>كل معاملاتك،<br><span>بخطوات بسيطة.</span></h1>
+                <p>راجع رصيدك ونفّذ عمليات السحب والإيداع بسرعة وأمان من أي مكان.</p>
+
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span><strong>سريع وآمن</strong><small>تجربة مصرفية واضحة وسهلة</small></span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">↻</span>
+                        <span><strong>متوفر دائمًا</strong><small>نفّذ معاملاتك في أي وقت</small></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="login-card card">
+                <div class="card-heading">
+                    <span class="mini-icon">↗</span>
+                    <div>
+                        <h2>تسجيل الدخول</h2>
+                        <p>أدخل بيانات حسابك للمتابعة</p>
+                    </div>
+                </div>
+
+                <form id="loginForm" novalidate>
+                    <label for="accountNumber">رقم الحساب</label>
+                    <div class="input-wrap">
+                        <input id="accountNumber" type="text" inputmode="numeric" autocomplete="username" maxlength="32"
+                            placeholder="مثال: 1001">
+                        <span>#</span>
+                    </div>
+
+                    <label for="pinCode">الرقم السري</label>
+                    <div class="input-wrap">
+                        <input id="pinCode" type="password" inputmode="numeric" autocomplete="current-password"
+                            minlength="4" maxlength="12"
+                            placeholder="أدخل الرقم السري">
+                        <button class="reveal-button" id="revealPin" type="button"
+                            aria-label="إظهار الرقم السري">◉</button>
+                    </div>
+
+                    <p class="form-error" id="loginError" role="alert"></p>
+                    <button class="primary-button" type="submit">الدخول إلى حسابي <span>←</span></button>
+                </form>
+
+            </div>
+        </section>
+
+        <section class="dashboard-view hidden" id="dashboardView">
+            <div class="welcome-row">
+                <div>
+                    <span class="eyebrow">لوحة التحكم</span>
+                    <h1>مرحبًا، <span id="clientFirstName"></span></h1>
+                    <p>اختر العملية التي تريد تنفيذها اليوم.</p>
+                </div>
+                <div class="date-chip" id="todayDate"></div>
+            </div>
+
+            <div class="balance-card">
+                <div>
+                    <span>الرصيد المتاح</span>
+                    <strong><span id="balanceAmount">0.00</span> <small>د.أ</small></strong>
+                    <p>رقم الحساب: <b id="maskedAccount"></b></p>
+                </div>
+                <div class="balance-decoration">
+                    <span></span><span></span>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="operations-section">
+                    <div class="section-heading">
+                        <div>
+                            <h2>العمليات السريعة</h2>
+                            <p>اختر الخدمة المناسبة لك</p>
+                        </div>
+                    </div>
+
+                    <div class="operation-grid">
+                        <button class="operation-card" data-action="quick" type="button">
+                            <span class="operation-icon">⚡</span>
+                            <strong>سحب سريع</strong>
+                            <small>مبالغ محددة مسبقًا</small>
+                            <i>←</i>
+                        </button>
+                        <button class="operation-card" data-action="withdraw" type="button">
+                            <span class="operation-icon">−</span>
+                            <strong>سحب عادي</strong>
+                            <small>حدد المبلغ المطلوب</small>
+                            <i>←</i>
+                        </button>
+                        <button class="operation-card" data-action="deposit" type="button">
+                            <span class="operation-icon">＋</span>
+                            <strong>إيداع</strong>
+                            <small>أضف مبلغًا إلى حسابك</small>
+                            <i>←</i>
+                        </button>
+                        <button class="operation-card" data-action="balance" type="button">
+                            <span class="operation-icon">◫</span>
+                            <strong>عرض الرصيد</strong>
+                            <small>راجع رصيدك الحالي</small>
+                            <i>←</i>
+                        </button>
+                    </div>
+                </div>
+
+                <aside class="activity-card card">
+                    <div class="section-heading">
+                        <div>
+                            <h2>آخر العمليات</h2>
+                            <p>نشاط حسابك الأخير</p>
+                        </div>
+                    </div>
+                    <div class="activity-list" id="activityList"></div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-backdrop hidden" id="modalBackdrop">
+        <section class="transaction-modal card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="close-button" id="closeModal" type="button" aria-label="إغلاق">×</button>
+            <div class="modal-icon" id="modalIcon">＋</div>
+            <h2 id="modalTitle">إيداع</h2>
+            <p id="modalDescription">أدخل المبلغ الذي تريد إيداعه</p>
+            <div id="quickAmounts" class="quick-amounts hidden"></div>
+            <form id="transactionForm">
+                <div class="amount-field" id="amountField">
+                    <input id="transactionAmount" type="number" min="1" max="1000000" step="1" placeholder="0">
+                    <span>د.أ</span>
+                </div>
+                <p class="form-error" id="transactionError" role="alert"></p>
+                <button class="primary-button" id="confirmTransaction" type="submit">تأكيد العملية</button>
+            </form>
+        </section>
+    </div>
+
+    <div class="toast hidden" id="toast" role="status">
+        <span>✓</span>
+        <div><strong id="toastTitle"></strong><small id="toastMessage"></small></div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

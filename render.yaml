@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: sarrafak-web
+    runtime: node
+    plan: starter
+    buildCommand: npm ci
+    startCommand: npm run migrate && npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sarrafak-db
+          property: connectionString
+      - key: APP_SECRET
+        generateValue: true
+      - key: PIN_PEPPER
+        generateValue: true
+      - key: ALLOW_SELF_DEPOSIT
+        value: "false"
+      - key: TRUST_PROXY
+        value: "true"
+      - key: SESSION_TTL_HOURS
+        value: "12"
+      - key: SESSION_IDLE_MINUTES
+        value: "30"
+
+databases:
+  - name: sarrafak-db
+    databaseName: sarrafak
+    user: sarrafak
+    plan: basic-256mb
+    ipAllowList: []
