@@ -25,7 +25,7 @@ services:
       - key: TRUST_PROXY
         value: "true"
       - key: ALLOWED_ORIGINS
-        value: https://malekfahmawi25.github.io
+        value: https://malekfahmawi25.github.io,http://localhost:5500,http://127.0.0.1:5500
       - key: SESSION_TTL_HOURS
         value: "12"
       - key: SESSION_IDLE_MINUTES

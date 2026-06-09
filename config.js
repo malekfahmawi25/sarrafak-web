@@ -1,9 +1,11 @@
 const localHosts = new Set(["localhost", "127.0.0.1"]);
 const githubPagesApiOrigin = "https://sarrafak-web.onrender.com";
+const isLocalHost = localHosts.has(window.location.hostname);
+const isLocalNodeServer = isLocalHost && window.location.port === "3000";
 
-// Local previews use the local API, GitHub Pages uses Render, and Render uses its own origin.
-window.SARRAFAK_API_ORIGIN = localHosts.has(window.location.hostname)
-  ? `${window.location.protocol}//${window.location.hostname}:3000`
-  : window.location.hostname.endsWith("github.io")
+// Live Server and GitHub Pages use Render. The local Node server and Render use their own origin.
+window.SARRAFAK_API_ORIGIN = isLocalNodeServer
+  ? ""
+  : isLocalHost || window.location.hostname.endsWith("github.io")
     ? githubPagesApiOrigin
     : "";

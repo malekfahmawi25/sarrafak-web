@@ -2,7 +2,7 @@ const REQUEST_TIMEOUT_MS = 15000;
 const configuredApiOrigin = window.SARRAFAK_API_ORIGIN?.trim().replace(/\/$/, "");
 const isLocalPreview =
   ["localhost", "127.0.0.1"].includes(window.location.hostname) &&
-  window.location.port !== "4173";
+  window.location.port !== "3000";
 const isUnconfiguredGitHubPages =
   window.location.hostname.endsWith("github.io") && !configuredApiOrigin;
 const API_ORIGIN =
