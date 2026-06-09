@@ -5,6 +5,7 @@ services:
     plan: free
     buildCommand: npm ci
     startCommand: npm run migrate && npm start
+    initialDeployHook: npm run import:clients
     healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
