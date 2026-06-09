@@ -2,10 +2,9 @@ services:
   - type: web
     name: sarrafak-web
     runtime: node
-    plan: starter
+    plan: free
     buildCommand: npm ci
-    preDeployCommand: npm run migrate
-    startCommand: npm start
+    startCommand: npm run migrate && npm start
     healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
@@ -24,6 +23,8 @@ services:
         value: "false"
       - key: TRUST_PROXY
         value: "true"
+      - key: ALLOWED_ORIGINS
+        value: https://malekfahmawi25.github.io
       - key: SESSION_TTL_HOURS
         value: "12"
       - key: SESSION_IDLE_MINUTES
@@ -33,5 +34,5 @@ databases:
   - name: sarrafak-db
     databaseName: sarrafak
     user: sarrafak
-    plan: basic-256mb
+    plan: free
     ipAllowList: []

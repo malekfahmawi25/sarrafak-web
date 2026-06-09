@@ -24,8 +24,8 @@ const ROOT_DIR = __dirname;
 const QUICK_AMOUNTS = new Set([20, 50, 100, 200, 400, 600, 800, 1000]);
 const PUBLIC_FILES = new Set(["index.html", "app.js", "config.js", "styles.css"]);
 const IDEMPOTENCY_KEY_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-const COOKIE_NAME = "id";
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
+const COOKIE_NAME = IS_PRODUCTION ? "__Host-id" : "id";
 const ALLOW_SELF_DEPOSIT = process.env.ALLOW_SELF_DEPOSIT === "true";
 const TRUST_PROXY = process.env.TRUST_PROXY === "true";
 const activeLoginKeys = new Set();
@@ -154,12 +154,16 @@ function getSessionToken(request) {
 
 function sessionCookie(token, maxAgeSeconds) {
     const secure = IS_PRODUCTION ? "; Secure" : "";
-    return `${COOKIE_NAME}=${token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${maxAgeSeconds}${secure}`;
+    const partitioned = IS_PRODUCTION ? "; Partitioned" : "";
+    const sameSite = IS_PRODUCTION ? "None" : "Strict";
+    return `${COOKIE_NAME}=${token}; HttpOnly; SameSite=${sameSite}; Path=/; Max-Age=${maxAgeSeconds}${secure}${partitioned}`;
 }
 
 function clearSessionCookie() {
     const secure = IS_PRODUCTION ? "; Secure" : "";
-    return `${COOKIE_NAME}=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0${secure}`;
+    const partitioned = IS_PRODUCTION ? "; Partitioned" : "";
+    const sameSite = IS_PRODUCTION ? "None" : "Strict";
+    return `${COOKIE_NAME}=; HttpOnly; SameSite=${sameSite}; Path=/; Max-Age=0${secure}${partitioned}`;
 }
 
 function getClientIp(request) {

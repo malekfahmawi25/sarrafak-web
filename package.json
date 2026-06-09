@@ -11,7 +11,7 @@
     "migrate": "node --env-file-if-exists=.env scripts/migrate.js",
     "import:clients": "node --env-file-if-exists=.env scripts/import-clients.js",
     "create:client": "node --env-file-if-exists=.env scripts/create-client.js",
-    "check": "node --check server.js && node --check app.js && node --check db.js && node --check security.js && node --check banking.js && node --check scripts/migrate.js && node --check scripts/import-clients.js && node --check scripts/create-client.js",
+    "check": "node --check server.js && node --check app.js && node --check config.js && node --check db.js && node --check security.js && node --check banking.js && node --check scripts/migrate.js && node --check scripts/import-clients.js && node --check scripts/create-client.js",
     "test": "node --test --test-isolation=none",
     "verify": "npm run check && npm test"
   },
